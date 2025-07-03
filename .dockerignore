@@ -1,0 +1,11 @@
+# Ignorar pastas de compilação e de pacotes
+**/bin
+**/obj
+
+# Ignorar arquivos e pastas do Visual Studio e do Git
+.vs
+.git
+
+# Ignorar o próprio Dockerfile e o .dockerignore do contexto
+Dockerfile
+.dockerignore

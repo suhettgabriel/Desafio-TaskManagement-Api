@@ -6,7 +6,7 @@ namespace TaskManagement.Application.DTOs
     {
         [Required(ErrorMessage = "O título é obrigatório.")]
         [StringLength(200, MinimumLength = 3, ErrorMessage = "O título deve ter entre 3 e 200 caracteres.")]
-        public string Title { get; set; }
+        public required string Title { get; set; }
 
         public string? Description { get; set; }
 

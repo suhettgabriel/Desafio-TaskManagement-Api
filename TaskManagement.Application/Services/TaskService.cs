@@ -14,7 +14,6 @@ namespace TaskManagement.Application.Services
             _unitOfWork = unitOfWork;
         }
 
-        // ATUALIZADO o tipo do parâmetro 'status'
         public async Task<IEnumerable<TaskDto>> GetAllTasksAsync(TaskItemStatus? status, DateTime? dueDate)
         {
             var tasks = await _unitOfWork.Tasks.GetAllAsync(status, dueDate);
@@ -51,7 +50,6 @@ namespace TaskManagement.Application.Services
                 Title = taskDto.Title,
                 Description = taskDto.Description,
                 DueDate = taskDto.DueDate,
-                // ATUALIZADO para usar o novo enum
                 Status = TaskItemStatus.Pendente
             };
 

@@ -9,12 +9,12 @@ namespace TaskManagement.Domain.Entities
 
         [Required]
         [MaxLength(200)]
-        public string Title { get; set; }
+        public string Title { get; set; } = string.Empty;
 
-        public string? Description { get; set; }
+        public string? Description { get; set; } 
 
         [Required]
-        public TaskItemStatus Status { get; set; }
+        public TaskItemStatus Status { get; set; } = TaskItemStatus.Pendente;
 
         public DateTime DueDate { get; set; }
     }

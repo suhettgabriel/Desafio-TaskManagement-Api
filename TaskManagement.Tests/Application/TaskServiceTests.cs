@@ -40,7 +40,7 @@ namespace TaskManagement.Tests.Application
         {
             // Arrange
             var taskId = 99;
-            _mockUnitOfWork.Setup(uow => uow.Tasks.GetByIdAsync(taskId)).ReturnsAsync((TaskItem)null);
+            _mockUnitOfWork.Setup(uow => uow.Tasks.GetByIdAsync(taskId)).ReturnsAsync((TaskItem?)null);
 
             // Act
             var result = await _taskService.GetTaskByIdAsync(taskId);
@@ -63,7 +63,6 @@ namespace TaskManagement.Tests.Application
             var result = await _taskService.CreateTaskAsync(createTaskDto);
 
             // Assert
-
             _mockUnitOfWork.Verify(uow => uow.Tasks.AddAsync(It.IsAny<TaskItem>()), Times.Once);
             _mockUnitOfWork.Verify(uow => uow.CompleteAsync(), Times.Once);
 
