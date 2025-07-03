@@ -1,0 +1,68 @@
+# Nome do workflow que aparecerá na aba "Actions" do GitHub
+name: .NET CI/CD Pipeline
+
+# Gatilhos: Define quando o workflow será executado
+on:
+  # Executa em cada push para a branch main
+  push:
+    branches: [ "main" ]
+  # Também executa em pull requests direcionados à branch main
+  pull_request:
+    branches: [ "main" ]
+
+# Trabalhos (Jobs): Define as tarefas a serem executadas
+jobs:
+  # Primeiro Job: Compilar e Testar a aplicação
+  build-and-test:
+    # Máquina virtual que será usada para executar o job
+    runs-on: ubuntu-latest
+
+    steps:
+    # 1. Faz o checkout do seu código para dentro da máquina virtual
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    # 2. Configura o ambiente .NET na versão 8
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+
+    # 3. Restaura as dependências (pacotes NuGet)
+    - name: Restore dependencies
+      run: dotnet restore
+
+    # 4. Compila a solução em modo Release
+    - name: Build
+      run: dotnet build --no-restore
+
+    # 5. Executa os testes unitários
+    - name: Test
+      run: dotnet test --no-build --verbosity normal
+
+  # Segundo Job: Construir e Publicar a imagem Docker
+  build-and-push-docker:
+    # Este job só será executado se o job 'build-and-test' for bem-sucedido
+    needs: build-and-test
+    runs-on: ubuntu-latest
+
+    steps:
+    # 1. Faz o checkout do código novamente
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    # 2. Faz o login no Docker Hub de forma segura
+    - name: Login to Docker Hub
+      uses: docker/login-action@v3
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+    # 3. Constrói a imagem Docker e a envia (push) para o Docker Hub
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v5
+      with:
+        context: .
+        # Nome da imagem no seu Docker Hub (usuário/repositório:tag)
+        push: true
+        tags: gabrielsuhett/task-management-api:latest
