@@ -1,0 +1,56 @@
+# Arquivos de configurações de usuário
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Arquivos de build e temporários do Visual Studio
+*.vs
+.vs/
+project.lock.json
+project.fragment.lock.json
+*.pyc
+*.swp
+*~
+
+# Pastas de Build
+[Bb]in/
+[Dd]ebug/
+[Oo]bj/
+[Rr]elease/
+
+# Pacotes NuGet
+packages/
+*.nupkg
+
+# Outros
+*.DotSettings
+*.dbmdl
+*.[Pp]ublish.xml
+*.pfx
+*.vssscc
+*.vspscc
+*_i.c
+*_p.c
+*_h.h
+*.ilk
+*.meta
+*.obj
+*.pch
+*.pdb
+*.pgc
+*.pgd
+*.rsp
+*.sbr
+*.tlb
+*.tli
+*.tlh
+*.tmp
+*.tmp_proj
+*.log
+*.vsix
+*.vhd
+*.vgdb
+*.csx
+*.csproj.user
+*.build.definitions
