@@ -16,12 +16,12 @@ namespace TaskManagement.Infrastructure.Repositories
 
         public async Task<TaskItem?> GetByIdAsync(int id)
         {
-            return await _context.Tasks.FindAsync(id);
+            return await _context.Tasks.FirstOrDefaultAsync(t => t.Id == id && !t.IsDeleted);
         }
 
         public async Task<IEnumerable<TaskItem>> GetAllAsync(TaskItemStatus? status, DateTime? dueDate)
         {
-            var query = _context.Tasks.AsQueryable();
+            var query = _context.Tasks.Where(t => !t.IsDeleted).AsQueryable();
 
             if (status.HasValue)
             {
@@ -48,7 +48,8 @@ namespace TaskManagement.Infrastructure.Repositories
 
         public void Remove(TaskItem task)
         {
-            _context.Tasks.Remove(task);
+            task.IsDeleted = true;
+            _context.Tasks.Update(task);
         }
     }
 }
