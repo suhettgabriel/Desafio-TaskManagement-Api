@@ -8,7 +8,7 @@ namespace TaskManagement.Domain.Entities
         public int Id { get; set; }
 
         [Required]
-        [MaxLength(200)]
+        [MaxLength(20)]
         public string Title { get; set; } = string.Empty;
 
         public string? Description { get; set; }
@@ -17,7 +17,7 @@ namespace TaskManagement.Domain.Entities
         public TaskItemStatus Status { get; set; } = TaskItemStatus.Pendente;
 
         public bool IsDeleted { get; set; } = false;
-
+        
         public DateTime DueDate { get; set; }
     }
 }

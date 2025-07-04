@@ -45,6 +45,7 @@ namespace TaskManagement.Application.Services
 
         public async Task<TaskDto> CreateTaskAsync(CreateTaskDto taskDto)
         {
+
             var task = new TaskItem
             {
                 Title = taskDto.Title,
@@ -92,7 +93,6 @@ namespace TaskManagement.Application.Services
             {
                 return false;
             }
-
             _unitOfWork.Tasks.Remove(taskToDelete);
             await _unitOfWork.CompleteAsync();
 

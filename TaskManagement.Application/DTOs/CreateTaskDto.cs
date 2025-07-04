@@ -2,7 +2,7 @@
 
 namespace TaskManagement.Application.DTOs
 {
-    public class CreateTaskDto
+    public class CreateTaskDto : IValidatableObject
     {
         [Required(ErrorMessage = "O título é obrigatório.")]
         [StringLength(200, MinimumLength = 3, ErrorMessage = "O título deve ter entre 3 e 200 caracteres.")]
@@ -12,5 +12,16 @@ namespace TaskManagement.Application.DTOs
 
         [Required(ErrorMessage = "A data de vencimento é obrigatória.")]
         public DateTime DueDate { get; set; }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (DueDate.Date <= DateTime.Now.Date)
+            {
+
+                yield return new ValidationResult(
+                    "A data de vencimento deve ser uma data futura.",
+                    new[] { nameof(DueDate) });
+            }
+        }
     }
 }
